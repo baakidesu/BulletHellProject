@@ -7,6 +7,7 @@ public class SceneInstaller : MonoInstaller
   {
       Container.Bind<PlayerMovement>().FromComponentInHierarchy().AsSingle();
       Container.Bind<MapController>().FromComponentInHierarchy().AsSingle();
+      Container.Bind<KnifeBehaviour>().FromComponentInHierarchy().AsSingle();
   }
   
 }
