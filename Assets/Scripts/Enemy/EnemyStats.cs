@@ -32,4 +32,13 @@ public class EnemyStats : MonoBehaviour
     {
         Lean.Pool.LeanPool.Despawn(gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            PlayerStats player = other.gameObject.GetComponentInParent<PlayerStats>();
+            player.TakeDamage(currentDamage);//oyuncuya hasar ver
+        }
+    }
 }

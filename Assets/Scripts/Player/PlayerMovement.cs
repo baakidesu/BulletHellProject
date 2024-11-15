@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     
     #region Public
 
-    public float moveSpeed;
+    //public float moveSpeed;
     
     [HideInInspector]
     public Vector2 moveDir;
@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     
     [HideInInspector] 
     public float lastVerticalVector;
+
+    public CharacterScriptableObject characterData;
     
     #endregion
 
@@ -75,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        rb.linearVelocity = new Vector2(moveDir.x * moveSpeed, moveDir.y * moveSpeed);
+        rb.linearVelocity = new Vector2(moveDir.x * characterData.MoveSpeed, moveDir.y * characterData.MoveSpeed);
     }
 
   

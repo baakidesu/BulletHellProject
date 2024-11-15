@@ -12,7 +12,7 @@ public class GarlicBehaviour : MeleeWeaponBehaviour
         markedEnemies = new List<GameObject>();
     }
 
-    protected void OnTriggerExit2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy") && !markedEnemies.Contains(other.gameObject))
         {
@@ -20,6 +20,13 @@ public class GarlicBehaviour : MeleeWeaponBehaviour
             enemy.TakeDamage(currentDamage);
             
             markedEnemies.Add(other.gameObject);
+        }else if (other.CompareTag("Prop"))
+        {
+            if (other.gameObject.TryGetComponent(out BreakableProps breakable) && !markedEnemies.Contains(other.gameObject))
+            {
+                breakable.TakeDamage(currentDamage);
+                markedEnemies.Add(other.gameObject);
+            }
         }
     }
 }
