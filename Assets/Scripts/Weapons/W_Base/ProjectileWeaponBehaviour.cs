@@ -28,7 +28,7 @@ public class ProjectileWeaponBehaviour : MonoBehaviour
 
     public float GetCurrentDamage()
     {
-        return currentDamage * FindObjectOfType<PlayerStats>().currentMight; //todo zenject
+        return currentDamage * FindObjectOfType<PlayerStats>().CurrentMight; //todo zenject
     }
 
     public void DirectionChecker(Vector3 dir)

@@ -7,29 +7,107 @@ using UnityEngine.Serialization;
 public class PlayerStats : MonoBehaviour
 {
      CharacterScriptableObject characterData;
-
-    #region CurrentStats
-    
-    [HideInInspector]
-    public float currentHealth;
-    [HideInInspector]
-    public float currentRecovery;
-    [HideInInspector]
-    public float currentMoveSpeed;
-    [HideInInspector]
-    public float currentMight;
-    [HideInInspector]
-    public float currentProjectileSpeed;
-    [HideInInspector]
-    public float currentMagnet;
-    
-
+     
+     float currentHealth;
+     float currentRecovery;
+     float currentMoveSpeed;
+     float currentMight;
+     float currentProjectileSpeed;
+     float currentMagnet;
+     
+    #region Current Stats Properties
+    public float CurrentHealth
+    {
+        get { return currentHealth; }
+        set
+        {
+            if (currentHealth != value)
+            {
+                currentHealth = value;
+                if (GameManager.instance !=null)
+                {
+                    GameManager.instance.currentHealthDisplay.text = "Health: " + currentHealth;
+                }
+            }
+        }
+    }
+    public float CurrentRecovery
+    {
+        get { return currentRecovery; }
+        set
+        {
+            if (currentRecovery != value) //değer değişmiş mi diye bak
+            {
+                currentRecovery = value; //gerçek zamanlı olarak değeri güncelle
+                if (GameManager.instance !=null)
+                {
+                    GameManager.instance.currentRecoveryDisplay.text = "Recovery: " + currentRecovery;
+                }
+            }
+        }
+    }
+    public float CurrentMoveSpeed
+    {
+        get { return currentMoveSpeed; }
+        set
+        {
+            if (currentMoveSpeed != value) //değer değişmiş mi diye bak
+            {
+                currentMoveSpeed = value; //gerçek zamanlı olarak değeri güncelle
+                if (GameManager.instance !=null)
+                {
+                    GameManager.instance.currentMoveSpeedDisplay.text = "Move Speed: " + currentMoveSpeed;
+                }
+            }
+        }
+    }
+    public float CurrentMight
+    {
+        get { return currentMight; }
+        set
+        {
+            if (currentMight != value) //değer değişmiş mi diye bak
+            {
+                currentMight = value; //gerçek zamanlı olarak değeri güncelle
+                if (GameManager.instance !=null)
+                {
+                    GameManager.instance.currentMightDisplay.text = "Might: " + currentMight;
+                }
+            }
+        }
+    }
+    public float CurrentProjectileSpeed
+    {
+        get { return currentProjectileSpeed; }
+        set
+        {
+            if (currentProjectileSpeed != value) //değer değişmiş mi diye bak
+            {
+                currentProjectileSpeed = value; //gerçek zamanlı olarak değeri güncelle
+                if (GameManager.instance !=null)
+                {
+                    GameManager.instance.currentProjectileSpeedDisplay.text = "Projectile Speed: " + currentProjectileSpeed;
+                }
+            }
+        }
+    }
+    public float CurrentMagnet
+    {
+        get { return currentMagnet; }
+        set
+        {
+            if (currentMagnet != value) //değer değişmiş mi diye bak
+            {
+                currentMagnet = value; //gerçek zamanlı olarak değeri güncelle
+                if (GameManager.instance !=null)
+                {
+                    GameManager.instance.currentMagnetDisplay.text = "Magnet: " + currentMagnet;
+                }
+            }
+        }
+    }
     #endregion
     
-    //yarattığın silah
-
-    
-
     [Header(("Experiance/Level"))] 
     public int experience = 0;
     public int level = 1;
@@ -64,12 +142,12 @@ public class PlayerStats : MonoBehaviour
 
         inventory = GetComponent<InventoryManager>();
         
-        currentHealth = characterData.MaxHealth;
-        currentMight = characterData.Might;
-        currentRecovery = characterData.Recovery;
-        currentMoveSpeed = characterData.MoveSpeed;
-        currentProjectileSpeed = characterData.ProjectileSpeed;
-        currentMagnet = characterData.Magnet;
+        CurrentHealth = characterData.MaxHealth;
+        CurrentMight = characterData.Might;
+        CurrentRecovery = characterData.Recovery;
+        CurrentMoveSpeed = characterData.MoveSpeed;
+        CurrentProjectileSpeed = characterData.ProjectileSpeed;
+        CurrentMagnet = characterData.Magnet;
         
         SpawnWeapon(characterData.StartingWeapon);
         
@@ -82,6 +160,16 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         experienceCap = levelRanges[0].experienceCapIncrease;//bir sonraki seviyeye geçmek için gereken xp miktarını ilk leveldeki miktara eşitlemek için bu kodu kullandım
+        
+        GameManager.instance.currentHealthDisplay.text = "Health: " + currentHealth;
+        GameManager.instance.currentRecoveryDisplay.text = "Recovery: " + currentRecovery;
+        GameManager.instance.currentMoveSpeedDisplay.text = "Move Speed: " + currentMoveSpeed;
+        GameManager.instance.currentMightDisplay.text = "Might: " + currentMight;
+        GameManager.instance.currentProjectileSpeedDisplay.text = "Projectile Speed: " + currentProjectileSpeed;
+        GameManager.instance.currentMagnetDisplay.text = "Magnet: " + currentMagnet;
+        
+        GameManager.instance.AssignChosenCharacterUI(characterData);
+        
     }
 
     private void Update()
@@ -126,10 +214,10 @@ public class PlayerStats : MonoBehaviour
     {
         if (!isInvincible)
         {
-            currentHealth -= damage;
+            CurrentHealth -= damage;
             invincibilityTimer = invincibilityDuration;
             isInvincible = true;
-            if (currentHealth <=0)
+            if (CurrentHealth <=0)
             {
                 Kill();
             }
@@ -139,30 +227,35 @@ public class PlayerStats : MonoBehaviour
 
     public void Kill()
     {
-        Debug.Log("Player öldü");
+        if (!GameManager.instance.isGameOver)
+        {
+            GameManager.instance.AssignLevelReachedUI(level);
+            GameManager.instance.AssignChosenWeaponsAndPassiveItemsUI(inventory.weaponUISlots, inventory.passiveItemUISlots);
+            GameManager.instance.GameOver(); 
+        }
     }
 
     public void RestoreHealth(float amount)
     {
-        if (currentHealth<characterData.MaxHealth)
+        if (CurrentHealth<characterData.MaxHealth)
         {
-            currentHealth += amount;
-            if (currentHealth > characterData.MaxHealth)
+            CurrentHealth += amount;
+            if (CurrentHealth > characterData.MaxHealth)
             {
-                currentHealth = characterData.MaxHealth;
+                CurrentHealth = characterData.MaxHealth;
             }
         }
     }
 
     void Recover()
     {
-        if (currentHealth < characterData.MaxHealth)
+        if (CurrentHealth < characterData.MaxHealth)
         {
-            currentHealth += currentRecovery * Time.deltaTime;
+            CurrentHealth += CurrentRecovery * Time.deltaTime;
 
-            if (currentHealth > characterData.MaxHealth)
+            if (CurrentHealth > characterData.MaxHealth)
             {
-                currentHealth = characterData.MaxHealth;
+                CurrentHealth = characterData.MaxHealth;
             }
         }
     }
