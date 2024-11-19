@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Lean.Pool;
+using Random = UnityEngine.Random;
 
 public class EnemyStats : MonoBehaviour
 {
@@ -14,11 +15,33 @@ public class EnemyStats : MonoBehaviour
     [HideInInspector]
     public float currentMoveSpeed;
 
+    public float despawnDistance = 20f;
+    private Transform player;
+
     public void Awake()
     {
         currentDamage = enemyData.Damage;
         currentHealth = enemyData.MaxHealth;
         currentMoveSpeed = enemyData.MoveSpeed;
+    }
+
+    private void Start()
+    {
+        player = FindObjectOfType<PlayerStats>().transform; //todo zenject
+    }
+
+    private void Update()
+    {
+        if (Vector2.Distance(transform.position, player.position) >= despawnDistance)
+        {
+            ReturnEnemy();
+        }
+    }
+
+    private void ReturnEnemy()
+    {
+        EnemySpawner es = FindObjectOfType<EnemySpawner>();
+        transform.position = player.position + es.relavtiveSpawnPoints[Random.Range(0,es.relavtiveSpawnPoints.Count)].position;
     }
 
     public void TakeDamage(float damage)
@@ -42,6 +65,19 @@ public class EnemyStats : MonoBehaviour
         {
             PlayerStats player = other.gameObject.GetComponentInParent<PlayerStats>();
             player.TakeDamage(currentDamage);//oyuncuya hasar ver
+        }
+    }
+
+    private void OnDestroy()
+    {
+        EnemySpawner es = FindObjectOfType<EnemySpawner>(); //zenject todo
+        if (es == null) 
+        {
+            return;
+        }
+        else
+        { 
+            es.OnEnemyKilled(); 
         }
     }
 }

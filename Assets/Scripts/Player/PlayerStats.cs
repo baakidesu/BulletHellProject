@@ -28,7 +28,6 @@ public class PlayerStats : MonoBehaviour
     
     //yarattığın silah
 
-    [FormerlySerializedAs("spawnedWeaons")] public List<GameObject> spawnedWeapons;
     
 
     [Header(("Experiance/Level"))] 
@@ -51,11 +50,19 @@ public class PlayerStats : MonoBehaviour
     bool isInvincible;
 
     public List<LevelRange> levelRanges;
+
+    private InventoryManager inventory;
+    public int weaponIndex;
+    public int passiveItemIndex;
+    
+    public GameObject secondWeaponTest, firstPI, secondPI;
     
     private void Awake()
     {
         characterData = CharacterSelector.GetData();
         CharacterSelector.instance.DestroySingleton();
+
+        inventory = GetComponent<InventoryManager>();
         
         currentHealth = characterData.MaxHealth;
         currentMight = characterData.Might;
@@ -65,6 +72,11 @@ public class PlayerStats : MonoBehaviour
         currentMagnet = characterData.Magnet;
         
         SpawnWeapon(characterData.StartingWeapon);
+        
+        //test
+        SpawnWeapon(secondWeaponTest);
+        SpawnPassiveItem(firstPI);
+        SpawnPassiveItem(secondPI);
     }
 
     void Start()
@@ -157,8 +169,28 @@ public class PlayerStats : MonoBehaviour
 
     public void SpawnWeapon(GameObject weapon)
     {
+        if (weaponIndex >= inventory.weaponSlots.Count -1)
+        {
+            Debug.LogError("Inventory slots already full!");
+        }
+        
         GameObject spawnedWeapon = LeanPool.Spawn(weapon, transform.position, Quaternion.identity);
         spawnedWeapon.transform.SetParent(transform);
-        spawnedWeapons.Add(spawnedWeapon);
+        inventory.AddWeapon(weaponIndex, spawnedWeapon.GetComponent<WeaponController>()); //sıkıntılı bi satır
+
+        weaponIndex++;
+    }
+    public void SpawnPassiveItem(GameObject passiveItem)
+    {
+        if (passiveItemIndex >= inventory.passiveItemSlots.Count -1)
+        {
+            Debug.LogError("Inventory slots already full!");
+        }
+        
+        GameObject spawnedPassiveItem = LeanPool.Spawn(passiveItem, transform.position, Quaternion.identity);
+        spawnedPassiveItem.transform.SetParent(transform);
+        inventory.AddPassiveItem(passiveItemIndex, spawnedPassiveItem.GetComponent<PassiveItem>()); //sıkıntılı bi satır
+
+        passiveItemIndex++;
     }
 }

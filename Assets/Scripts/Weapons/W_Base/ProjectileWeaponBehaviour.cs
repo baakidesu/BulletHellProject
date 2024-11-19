@@ -26,6 +26,11 @@ public class ProjectileWeaponBehaviour : MonoBehaviour
         Lean.Pool.LeanPool.Despawn(gameObject, destroyAfterSecond);
     }
 
+    public float GetCurrentDamage()
+    {
+        return currentDamage * FindObjectOfType<PlayerStats>().currentMight; //todo zenject
+    }
+
     public void DirectionChecker(Vector3 dir)
     {
         direction = dir;
@@ -74,13 +79,13 @@ public class ProjectileWeaponBehaviour : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             EnemyStats enemy = other.GetComponent<EnemyStats>();
-            enemy.TakeDamage(currentDamage);
+            enemy.TakeDamage(GetCurrentDamage());
             ReducePierce();
         }else if (other.CompareTag("Prop"))
         {
             if (other.gameObject.TryGetComponent(out BreakableProps breakable))
             {
-                breakable.TakeDamage(currentDamage);
+                breakable.TakeDamage(GetCurrentDamage());
                 ReducePierce();
             }
         }
