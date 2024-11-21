@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a082d00e2b8f3d84db7fdbff8b8fb45e, type: 3}
+  m_Name: Garlic Weapon Level 3
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7353095636672510434, guid: fb47c0ca164b98c468fd4daf360fab49, type: 3}
+  damage: 5
+  speed: 0
+  cooldownDuration: 2
+  pierce: 0
+  level: 2
+  nextLevelPrefab: {fileID: 0}
+  name: Garlic Level 3
+  description: Cooldown reduced
+  icon: {fileID: 4641043289130053377, guid: fae1717ba0f36de40b3bbdc9a88164a3, type: 3}

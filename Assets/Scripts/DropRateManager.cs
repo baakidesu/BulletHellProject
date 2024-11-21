@@ -37,7 +37,8 @@ public class DropRateManager : MonoBehaviour
         {
             //todo en yüksek drop rate olan itemi dropla
             Drops drops = possibleDrops[UnityEngine.Random.Range(0, possibleDrops.Count)];
-            LeanPool.Spawn(drops.itemPrefab, transform.position, Quaternion.identity);
+            Instantiate(drops.itemPrefab, transform.position, Quaternion.identity); //lean pool patladı
+            Debug.Log("exp eşyası düştü");
 
         }
     }

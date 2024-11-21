@@ -56,7 +56,7 @@ public class EnemyStats : MonoBehaviour
 
     public void Kill()
     {
-        Lean.Pool.LeanPool.Despawn(gameObject);
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D other)

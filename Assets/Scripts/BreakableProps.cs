@@ -16,6 +16,6 @@ public class BreakableProps : MonoBehaviour
 
     private void Kill()
     {
-        LeanPool.Despawn(gameObject);
+        Destroy(gameObject);
     }
 }

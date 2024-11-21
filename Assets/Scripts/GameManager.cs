@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     {
         Gameplay,
         Paused,
-        GameOver
+        GameOver,
+        LevelUp
     }
 
     public GameState currentState;
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     [Header("Screens")] 
     public GameObject pauseScreen;
     public GameObject resultScreen;
+    public GameObject levelUpScreen;
     
     [Header("Current Stat Displays")] 
     public TMP_Text currentHealthDisplay;
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text currentMightDisplay;
     public TMP_Text currentProjectileSpeedDisplay;
     public TMP_Text currentMagnetDisplay;
+    public TMP_Text timeSurvivedDisplay;
     
     [Header("Results Screen Displays")] 
     public Image chosenCharacterImage;
@@ -37,9 +40,21 @@ public class GameManager : MonoBehaviour
     public List<Image> chosenWeaponsUI = new List<Image>(6);
     public List<Image> chosenPassiveItemsUI = new List<Image>(6);
 
-    [HideInInspector]
-    public bool isGameOver = false;
+    [Header("Stopwatch")] 
+    public float timeLimit;
+    private float stopwatch;
+    public TMP_Text stopwatchDisplay;
+    
 
+
+    [HideInInspector]
+    public bool isGameOver = false; //oyun bitti mi kontrolü
+    
+    [HideInInspector]
+    public bool choosingLevel = false; // level ekranı açık mı kontrolü
+
+    public GameObject playerObject; //player game object referansı. inventory sistem send message call'ı için açıldı.
+    
     private void Awake()
     {
         if (instance == null)
@@ -60,6 +75,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Gameplay:
                 CheckForPauseAndResume();
+                UpdateStopwatchTime();
                 break;
 
             case GameState.Paused:
@@ -73,6 +89,16 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = 0f; //oyunu durdur
                     Debug.Log("Game Over");
                     DisplayResults();
+                }
+                break;
+            
+            case GameState.LevelUp:
+                if (!choosingLevel)
+                {
+                    choosingLevel = true;
+                    Time.timeScale = 0f;
+                    levelUpScreen.SetActive(true);
+                    Debug.Log("Upgrades Shown");
                 }
                 break;
 
@@ -130,15 +156,18 @@ public class GameManager : MonoBehaviour
     {
         pauseScreen.SetActive(false);
         resultScreen.SetActive(false);
+        levelUpScreen.SetActive(false);
     }
 
     public void GameOver()
     {
+        timeSurvivedDisplay.text = stopwatchDisplay.text;
         ChangeState(GameState.GameOver);
     }
 
     void DisplayResults()
     {
+        stopwatchDisplay.enabled = false;
         resultScreen.SetActive(true);
     }
 
@@ -191,6 +220,40 @@ public class GameManager : MonoBehaviour
             }
         }
         
+    }
+
+    public void UpdateStopwatchTime()
+    {
+        stopwatch += Time.deltaTime;
+        
+        UpdateStopwatchDisplay();
+
+        if (stopwatch >= timeLimit)
+        {
+            GameOver();
+        }
+    }
+
+    public void UpdateStopwatchDisplay()
+    {
+        int minutes = Mathf.FloorToInt(stopwatch / 60);
+        int seconds = Mathf.FloorToInt(stopwatch % 60);
+        
+        stopwatchDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void StartLevelUp()
+    {
+        ChangeState(GameState.LevelUp);
+        playerObject.SendMessage("RemoveAndApplyUpgrades");
+    }
+
+    public void EndLevelUp()
+    {
+        choosingLevel = false;
+        Time.timeScale = 1f;
+        levelUpScreen.SetActive(false);
+        ChangeState(GameState.Gameplay);
     }
     
     

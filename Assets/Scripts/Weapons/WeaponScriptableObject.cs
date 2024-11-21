@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "WeaponScriptableObject", menuName = "ScriptableObjects/Weapon")]
@@ -35,6 +36,14 @@ public class WeaponScriptableObject : ScriptableObject
     [SerializeField] 
     GameObject nextLevelPrefab;
     public GameObject NextLevelPrefab {get => nextLevelPrefab; private set => nextLevelPrefab = value;}
+
+    [SerializeField] 
+    new String name;
+    public String Name {get => name; private set => name = value;}
+    
+    [SerializeField] 
+    String description;
+    public String Description {get => description; private set => description = value;}
 
     [SerializeField] 
     private Sprite icon;

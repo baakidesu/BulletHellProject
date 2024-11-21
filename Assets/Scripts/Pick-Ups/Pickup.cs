@@ -7,7 +7,7 @@ public class Pickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            LeanPool.Despawn(gameObject);
+            Destroy(gameObject); //lean pool patladı
         }
     }
 }

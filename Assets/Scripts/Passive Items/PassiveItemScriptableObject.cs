@@ -1,4 +1,7 @@
+using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "PassiveItemScriptableObject", menuName = "ScriptableObjects/PassiveItemScriptableObject")]
 public class PassiveItemScriptableObject : ScriptableObject
@@ -14,6 +17,14 @@ public class PassiveItemScriptableObject : ScriptableObject
     [SerializeField] 
     GameObject nextLevelPrefab;
     public GameObject NextLevelPrefab {get => nextLevelPrefab; private set => nextLevelPrefab = value;}
+    
+    [SerializeField] 
+    new String name;
+    public String Name {get => name; private set => name = value;}
+    
+    [SerializeField] 
+    String description;
+    public String Description {get => description; private set => description = value;}
     
     [SerializeField] 
     private Sprite icon;

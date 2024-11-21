@@ -15,4 +15,6 @@ MonoBehaviour:
   multiplier: 100
   level: 1
   nextLevelPrefab: {fileID: 3266495312428654637, guid: 4dec95942bf487044bc7ba86ef52af0e, type: 3}
+  name: Corn
+  description: Increases Might
   icon: {fileID: -4117668470987369897, guid: fcc0ad47d63269741ad31dfd9fb437a5, type: 3}
