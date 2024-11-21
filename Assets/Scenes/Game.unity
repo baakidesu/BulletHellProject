@@ -258,12 +258,12 @@ MonoBehaviour:
   - waveName: Wave 1
     enemyGroups:
     - enemyName: Bat
-      enemyCount: 100
-      spawnCount: 4
+      enemyCount: 5
+      spawnCount: 0
       enemyPrefab: {fileID: 2049079797169858695, guid: 1b26e05d0b58b6a48a44d2f7e914576c, type: 3}
-    waveQuota: 0
+    waveQuota: 5
     spawnInterval: 1
-    spawnCount: 4
+    spawnCount: 0
   currentWaveCount: 0
   waveInternal: 3
   enemiesAlive: 0
@@ -5872,6 +5872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df017e5618158c47bb3032d14af9414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageEffect: {fileID: 8405578355232757902, guid: a2ae9c549a70c3b4b8de869a58f84594, type: 3}
   experience: 0
   level: 1
   experienceCap: 0
@@ -5888,9 +5889,6 @@ MonoBehaviour:
   healthBar: {fileID: 117101593}
   expBar: {fileID: 1798452010}
   levelText: {fileID: 372400815}
-  secondWeaponTest: {fileID: 5730625335578001280, guid: 04aefaa66ee6670448531d715a8e136d, type: 3}
-  firstPI: {fileID: 1626978336752939865, guid: 1ed844a15f2349e42aab29e6d74c6178, type: 3}
-  secondPI: {fileID: 3266495312428654637, guid: eeda75eb339bc1549b94ce0261f4e54e, type: 3}
 --- !u!114 &1098375523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5965,6 +5963,8 @@ MonoBehaviour:
     upgradeDescriptionDisplay: {fileID: 165089494}
     upgradeIcon: {fileID: 1567504895}
     upgradeButton: {fileID: 831169376}
+  weaponEvolutions:
+  - {fileID: 11400000, guid: 724018ab48cbbb14c99285bb4f33fb21, type: 2}
 --- !u!1 &1128499599
 GameObject:
   m_ObjectHideFlags: 0
@@ -6816,7 +6816,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 2.06
+  m_Radius: 0.98
 --- !u!114 &1361019865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9871,7 +9871,6 @@ MonoBehaviour:
   spawnedChunks: []
   maxOpdist: 50
   optimizerCooldownDuration: 1
-  noTerrainPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1947182674
 Transform:
   m_ObjectHideFlags: 0
@@ -10288,6 +10287,10 @@ MonoBehaviour:
   - {fileID: 1400105711}
   timeLimit: 75
   stopwatchDisplay: {fileID: 1858218436}
+  damageTextCanvas: {fileID: 1835029787}
+  textFontSize: 20
+  textFont: {fileID: 0}
+  referenceCamera: {fileID: 519420031}
   isGameOver: 0
   choosingLevel: 0
   playerObject: {fileID: 1098375514}
@@ -10387,6 +10390,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b3243d15115aab4aa14358a65996563, type: 3}
+--- !u!1001 &5385855571545495670
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2124296461685287697, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.318
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124296461685287697, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124296461685287697, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124296461685287697, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124296461685287697, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124296461685287697, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124296461685287697, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124296461685287697, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124296461685287697, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124296461685287697, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2867152225615231324, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
+      propertyPath: m_Name
+      value: Treasure Chest
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3a54b38973248f34fa12d95b8d042f40, type: 3}
 --- !u!1001 &8602389293886551275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10467,3 +10527,4 @@ SceneRoots:
   - {fileID: 1835029788}
   - {fileID: 1615885797}
   - {fileID: 2082589256}
+  - {fileID: 5385855571545495670}

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960033569128a1241b2c77060dbe57dc, type: 3}
+  m_Name: Knife + Corn
+  m_EditorClassIdentifier: 
+  baseWeaponData: {fileID: 11400000, guid: aeaffca7ca609594d98d43ea180b655f, type: 2}
+  catalystPassiveItemData: {fileID: 11400000, guid: 24605bc5bffdd7145b763f81f941c030, type: 2}
+  evolvedWeaponData: {fileID: 11400000, guid: a17f6999fdfc7cf4fbeb702009cbd42b, type: 2}
+  evolvedWeapon: {fileID: 663752993702849022, guid: ec6412e40f21c054b97d022dba651276, type: 3}

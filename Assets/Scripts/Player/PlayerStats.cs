@@ -109,6 +109,8 @@ public class PlayerStats : MonoBehaviour
         }
     }
     #endregion
+
+    public ParticleSystem damageEffect;
     
     [Header(("Experiance/Level"))] 
     public int experience = 0;
@@ -139,9 +141,6 @@ public class PlayerStats : MonoBehaviour
     public Image healthBar;
     public Image expBar;
     public TMP_Text levelText;
-    
-    public GameObject secondWeaponTest, firstPI, secondPI;
-    
     private void Awake()
     {
         characterData = CharacterSelector.GetData();
@@ -157,11 +156,6 @@ public class PlayerStats : MonoBehaviour
         CurrentMagnet = characterData.Magnet;
         
         SpawnWeapon(characterData.StartingWeapon);
-        
-        //test 
-        //SpawnWeapon(secondWeaponTest);
-        //SpawnPassiveItem(firstPI);
-        SpawnPassiveItem(secondPI); 
     }
 
     void Start()
@@ -240,6 +234,10 @@ public class PlayerStats : MonoBehaviour
         if (!isInvincible)
         {
             CurrentHealth -= damage;
+            if (damageEffect)
+            {
+                Instantiate(damageEffect, transform.position, Quaternion.identity);
+            }
             invincibilityTimer = invincibilityDuration;
             isInvincible = true;
             if (CurrentHealth <=0)

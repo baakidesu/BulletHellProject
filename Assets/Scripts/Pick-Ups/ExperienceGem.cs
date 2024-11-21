@@ -1,13 +1,22 @@
 using System;
 using UnityEngine;
 using Lean.Pool;
-public class ExperienceGem : Pickup, ICollectable
+public class ExperienceGem : Pickup
 {
     public int experienceGranted;
     
     
-    public void Collect()
+    public override void Collect()
     {
+        if (hasBeenCollected)
+        {
+            return;
+        }
+        else
+        {
+            base.Collect();
+        }
+        
         PlayerStats player = FindObjectOfType<PlayerStats>();
         player.IncreaseExperience(experienceGranted);
     }
